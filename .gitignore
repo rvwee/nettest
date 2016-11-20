@@ -1,5 +1,7 @@
 ### Repo-specific things ###
 
+*.ignore
+
 # Test results
 *-testResults.xml
 
