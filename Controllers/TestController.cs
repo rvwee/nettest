@@ -5,23 +5,38 @@ using System.Linq;
 [Route("api/[controller]")]
 public class TestController : Controller
 {
-    private static IEnumerable<TestClass> data = new List<TestClass>
+    private static IEnumerable<Test> data = new List<Test>
     {
-        new TestClass{
+        new Test{
             Id = 0,
-            Value = "TestValue1"
+            Key = "key1",
+            Value = "TestValue1",
+            Description = "This is some description"
         },
-        new TestClass{
+        new Test{
             Id = 1,
-            Value = "TestValue2"
+            Key = "key2",
+            Value = "TestValue2",
+            Description = "This is some other description"
         },
     };
 
     // /api/test
     [HttpGet]
-    public IEnumerable<TestClass> Get()
+    public IEnumerable<Test> Get()
     {
-        return data;
+        return GetDataMultiplied(data, 6);
+    }
+
+    private static IEnumerable<Test> GetDataMultiplied(IEnumerable<Test> dataToMultiply, int multiplication) 
+    {
+        IEnumerable<Test> result = dataToMultiply;
+        for (var i = 0; i <= multiplication; i++) 
+        {
+            result = result.Concat(result);
+        }
+
+        return result;
     }
 
     // /api/test/1
@@ -37,7 +52,9 @@ public class TestController : Controller
     }
 }
 
-public class TestClass {
+public class Test {
     public int Id {get;set;}
+    public string Key {get;set;}
     public string Value {get;set;}
+    public string Description {get;set;}
 }

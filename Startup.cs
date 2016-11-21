@@ -24,6 +24,14 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy",
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials() );
+        });
         services.AddMvc();
     }
 
@@ -31,6 +39,9 @@ public class Startup
     {
         loggerFactory.AddConsole(Configuration.GetSection("Logging"));
         loggerFactory.AddDebug();
+        
+        app.UseCors("CorsPolicy");
+        //app.UseCors(builder => builder.WithOrigins("http://localhost:8080/*"));
 
         app.UseMvc();
     }
