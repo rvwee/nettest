@@ -14,7 +14,9 @@
     "Microsoft.Extensions.Logging": "1.1.0",
     "Microsoft.Extensions.Logging.Console": "1.1.0",
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
-    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0"
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
+    "Microsoft.EntityFrameworkCore.SQLite": "1.1.0-preview1-final",
+    "Microsoft.EntityFrameworkCore.Design": "1.1.0-preview1-final"
   },
   "frameworks": {
     "netcoreapp1.1": {
@@ -26,5 +28,8 @@
       },
       "imports": "dnxcore50"
     }
+  },
+  "tools": {
+    "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4"
   }
 }

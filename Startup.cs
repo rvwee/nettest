@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +20,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        //services.AddEntityFrameworkSqlite().AddDbContext<DinerDbContext>();
         services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy",
