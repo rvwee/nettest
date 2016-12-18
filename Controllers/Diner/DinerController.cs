@@ -52,7 +52,7 @@ public class DinerController : Controller
         
         using (var db = new DinerDbContext())
         {
-            var meal = db.Meals.FirstOrDefault(m => m.Title.Equals(title));
+            var meal = db.Meals.Include(m => m.Ingredients).FirstOrDefault(m => m.Title.Equals(title));
             if (meal == null)
                 return BadRequest();
             
@@ -63,8 +63,8 @@ public class DinerController : Controller
             meal.Chef = item.Chef;
             meal.Title = item.Title;
             meal.ExtraInfo = item.ExtraInfo;
-
-	    foreach (var ingredient in meal.Ingredients)
+        
+    	    foreach (var ingredient in meal.Ingredients)
             {
                 db.Ingredient.Remove(ingredient);
             }
@@ -73,7 +73,7 @@ public class DinerController : Controller
 
             foreach (var ingredient in item.Ingredients) 
             {
-		Console.WriteLine(ingredient.ToString());
+		        Console.WriteLine(ingredient.ToString());
                 meal.Ingredients.Add(new Ingredient{
                     Description = ingredient.Description,
                     ExtraInfo = ingredient.ExtraInfo
