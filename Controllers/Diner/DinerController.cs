@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ public class DinerController : Controller
     [HttpGet]
     public IEnumerable<Meal> Get()
     {
+	Console.WriteLine("Get...");
         using (var db = new DinerDbContext())
         {
             return db.Meals.Include(m => m.Ingredients).ToList();
@@ -61,7 +63,23 @@ public class DinerController : Controller
             meal.Chef = item.Chef;
             meal.Title = item.Title;
             meal.ExtraInfo = item.ExtraInfo;
-            
+
+	    foreach (var ingredient in meal.Ingredients)
+            {
+                db.Ingredient.Remove(ingredient);
+            }
+
+            meal.Ingredients = new List<Ingredient>();
+
+            foreach (var ingredient in item.Ingredients) 
+            {
+		Console.WriteLine(ingredient.ToString());
+                meal.Ingredients.Add(new Ingredient{
+                    Description = ingredient.Description,
+                    ExtraInfo = ingredient.ExtraInfo
+                });
+            } 
+
             db.SaveChanges();
         }
         
